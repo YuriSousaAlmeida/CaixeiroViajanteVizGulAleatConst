@@ -17,6 +17,8 @@ void imprimirDadosIniciais(int inteiro, float matriz[MAX_CIDADE][MAX_CIDADE]);
 void imprimirNaTela(Solucao &sol);
 void imprimirNoArquivo(Solucao &sol, char *nomeArq);
 void calcularFo(Solucao &sol);
-int gerarGulosa(int numCidade);
+void gerarGulosa(Solucao &sol);
+void gerarAleatoria(Solucao &sol);
+void gerarGulosaAleatoria(Solucao &sol);
 void gerarVizinhanca(Solucao &sol);
 #endif

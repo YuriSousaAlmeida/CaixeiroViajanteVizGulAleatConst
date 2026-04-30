@@ -18,13 +18,15 @@ int main()
     ler_instancia(arquivo);
 
 
+    /*
     printf("Digite as cidades da rota do caixeiro:\n");
     for(int i=0;i<num_cidade;i++){
         scanf("%d", &sol.cidadesVisitadas[i]);
     }
+    */
 
-
-    imprimirDadosIniciais(num_cidade,mat_custo);
+    gerarAleatoria(sol);
+    //imprimirDadosIniciais(num_cidade,mat_custo);
     calcularFo(sol);
     imprimirNaTela(sol);
     imprimirNoArquivo(sol, "SaidaTela.txt");
@@ -85,9 +87,8 @@ void imprimirNoArquivo(Solucao &sol, char *nomeArq){
     fclose(f);
 }
 
-//automatizar o processo da contagem de cidades visitadas
 void calcularFo(Solucao &sol){
-    gerarVizinhanca(sol);
+    gerarVizinhanca(sol); //Gerando vizinhança direto na fo
     for(int i=0;i<num_cidade;i++){
         sol.qtdVisitas[i]=0;
     }
@@ -103,8 +104,28 @@ void calcularFo(Solucao &sol){
     }
 }
 
-int gerarGulosa(Solucao &sol){
+void gerarGulosa(Solucao &sol){
 
+}
+
+void gerarAleatoria(Solucao &sol){
+    int aleatorio;
+    for(int i=0; i<num_cidade; i++){
+        sol.cidadesVisitadas[i]=0;
+    }
+    for(int i=0; i<num_cidade; i++){
+        if(i==0){
+          sol.cidadesVisitadas[i]= rand() % num_cidade;
+          continue;
+        }
+        do{
+           aleatorio = rand() % num_cidade;
+        }while(sol.cidadesVisitadas[i-1]==aleatorio);
+        sol.cidadesVisitadas[i]=aleatorio;
+    }
+}
+
+void gerarGulosaAleatoria(Solucao &sol){
 
 }
 
