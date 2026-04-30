@@ -17,6 +17,7 @@ int main()
 
     ler_instancia(arquivo);
 
+
     printf("Digite as cidades da rota do caixeiro:\n");
     for(int i=0;i<num_cidade;i++){
         scanf("%d", &sol.cidadesVisitadas[i]);
