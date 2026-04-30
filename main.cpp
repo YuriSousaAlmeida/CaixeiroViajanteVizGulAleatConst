@@ -25,7 +25,8 @@ int main()
     }
     */
 
-    gerarAleatoria(sol);
+    //gerarAleatoria(sol);
+    gerarGulosa(sol);
     //imprimirDadosIniciais(num_cidade,mat_custo);
     calcularFo(sol);
     imprimirNaTela(sol);
@@ -105,7 +106,19 @@ void calcularFo(Solucao &sol){
 }
 
 void gerarGulosa(Solucao &sol){
+    float menorDistancia=100000;
+    sol.cidadesVisitadas[0]=0;
 
+
+    for(int i=1; i<num_cidade; i++){
+        for(int j=0; j<num_cidade; j++){
+            if(((mat_custo[sol.cidadesVisitadas[i-1]][j]) < menorDistancia)&&(mat_custo[sol.cidadesVisitadas[i-1]][j])>0){
+              menorDistancia=mat_custo[sol.cidadesVisitadas[i-1]][j];
+              sol.cidadesVisitadas[i]=j;
+            }
+        }menorDistancia=100000;
+
+    }
 }
 
 void gerarAleatoria(Solucao &sol){
