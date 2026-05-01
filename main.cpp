@@ -17,16 +17,9 @@ int main()
 
     ler_instancia(arquivo);
 
-
-    /*
-    printf("Digite as cidades da rota do caixeiro:\n");
-    for(int i=0;i<num_cidade;i++){
-        scanf("%d", &sol.cidadesVisitadas[i]);
-    }
-    */
-
     //gerarAleatoria(sol);
-    gerarGulosa(sol);
+    //gerarGulosa(sol);
+    gerarGulosaAleatoria(sol);
     //imprimirDadosIniciais(num_cidade,mat_custo);
     calcularFo(sol);
     imprimirNaTela(sol);
@@ -89,7 +82,7 @@ void imprimirNoArquivo(Solucao &sol, char *nomeArq){
 }
 
 void calcularFo(Solucao &sol){
-    gerarVizinhanca(sol); //Gerando vizinhança direto na fo
+    //gerarVizinhanca(sol); //Gerando vizinhança direto na fo
     for(int i=0;i<num_cidade;i++){
         sol.qtdVisitas[i]=0;
     }
@@ -107,17 +100,19 @@ void calcularFo(Solucao &sol){
 
 void gerarGulosa(Solucao &sol){
     float menorDistancia=100000;
+    bool vetAux[num_cidade]={false};
+    vetAux[0]=true;
     sol.cidadesVisitadas[0]=0;
 
 
     for(int i=1; i<num_cidade; i++){
         for(int j=0; j<num_cidade; j++){
-            if(((mat_custo[sol.cidadesVisitadas[i-1]][j]) < menorDistancia)&&(mat_custo[sol.cidadesVisitadas[i-1]][j])>0){
+
+            if(((mat_custo[sol.cidadesVisitadas[i-1]][j]) < menorDistancia)&&((mat_custo[sol.cidadesVisitadas[i-1]][j])>0)&&(vetAux[j]==false)){
               menorDistancia=mat_custo[sol.cidadesVisitadas[i-1]][j];
               sol.cidadesVisitadas[i]=j;
             }
-        }menorDistancia=100000;
-
+        }menorDistancia=100000; vetAux[sol.cidadesVisitadas[i]]=true;
     }
 }
 
@@ -139,7 +134,32 @@ void gerarAleatoria(Solucao &sol){
 }
 
 void gerarGulosaAleatoria(Solucao &sol){
+    float menorDistancia=100000;
+    bool vetAux[num_cidade]={false};
+    vetAux[0]=true;
+    sol.cidadesVisitadas[0]=0;
 
+        for(int i=1; i<num_cidade; i++){
+                if(i%2==0){
+            for(int j=0; j<num_cidade; j++){
+
+            if(((mat_custo[sol.cidadesVisitadas[i-1]][j]) < menorDistancia)&&((mat_custo[sol.cidadesVisitadas[i-1]][j])>0)&&(vetAux[j]==false)){
+              menorDistancia=mat_custo[sol.cidadesVisitadas[i-1]][j];
+              sol.cidadesVisitadas[i]=j;
+            }
+        }
+        menorDistancia=100000;
+        vetAux[sol.cidadesVisitadas[i]]=true;
+     }else{
+        int aleat;
+        do{
+            aleat=rand() % num_cidade;
+
+        }while(vetAux[aleat]==true);
+        sol.cidadesVisitadas[i]=aleat;
+        vetAux[aleat]=true;
+     }
+    }
 }
 
 void gerarVizinhanca(Solucao &sol){
